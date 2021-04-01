@@ -1,0 +1,24 @@
+Package: moz.utils
+Type: Package
+Title: Utility functions for managing Mozambique's HIV data
+Version: 0.1.0
+Authors@R: 
+    person(given = "Oli",
+           family = "Stevens",
+           role = c("aut", "cre"),
+           email = "o.stevens@imperial.ac.uk",
+           comment = c(ORCID = "0000-0001-6842-9434"))
+Depends: R (>= 2.10)
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: 
+  naomi,
+  ggplot2,
+  magrittr,
+  dplyr,
+  sf
+Remotes:
+  mrc-ide/naomi
