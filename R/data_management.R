@@ -14,3 +14,18 @@ aggregate_to_admin <- function(df, group_vars, indicators, target_level, areas_w
     ungroup()
 
 }
+
+
+five_year_to_15to49 <- function(df, indicators) {
+  
+  age_span <- naomi::get_age_groups() %>%
+    dplyr::filter(age_group_span == 5,
+           age_group_start %in% 15:45)
+  
+  df %>%
+    dplyr::filter(age_group %in% age_span$age_group) %>%
+    dplyr::group_by(across(-all_of(c(indicators, "age_group")))) %>%
+    dplyr::summarise(across(all_of(indicators), sum)) %>%
+    dplyr::mutate(age_group = "Y015_049")
+  
+}
