@@ -30,6 +30,7 @@ extract_mozambique_spectrum <- function(areas,
     dplyr::group_by(area_name, year, sex, age_group) %>%
     dplyr::summarise(totpop = sum(totpop),
                      hivpop = sum(hivpop),
+                     artpop = sum(artpop),
                      infections = sum(infections)) %>%
     dplyr::ungroup() %>%
     mutate(source = "Spectrum 2021") %>%
