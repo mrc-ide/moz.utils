@@ -1,17 +1,46 @@
-aggregate_to_admin <- function(df, group_vars, indicators, target_level, areas_wide) {
+aggregate_to_admin <- function(df, group_vars, indicators, target_level, areas) {
 
   target_id <- paste0("area_id", target_level)
   target_name <- paste0("area_name", target_level)
 
-  group_vars <- c(target_id, target_name, group_vars)
+  areas_wide <- spread_areas(areas)
 
-  df %>%
-    left_join(areas_wide %>% st_drop_geometry()) %>%
+  ls <- df %>%
+    left_join(areas %>% select(area_id, area_level) %>% st_drop_geometry()) %>%
+    group_by(area_level) %>%
+    group_split()
+
+  df <- lapply(ls, function(x) {
+
+    lvl <- paste0("area_id", unique(x$area_level))
+
+    x <- x %>%
+      left_join(areas_wide %>% st_drop_geometry() %>% select(-area_id), by=c("area_id" = lvl))
+  }) %>%
+    bind_rows() %>%
+    mutate(level_check = area_level >= target_level)
+
+  prep_df <- df %>%
+    filter(level_check == TRUE)
+
+  group_vars <- c(target_name, group_vars)
+
+  aggregated_df <- prep_df %>%
     group_by(across(all_of(group_vars))) %>%
     summarise(across(all_of(indicators), sum)) %>%
+    left_join(areas_wide %>% st_drop_geometry() %>% select(all_of(c(target_id, target_name))) %>% distinct()) %>%
     rename_with(~paste("area_id"), starts_with("area_id")) %>%
     rename_with(~paste("area_name"), starts_with("area_name")) %>%
     ungroup()
+
+  high_level_df <- df %>%
+    filter(level_check == FALSE)
+
+  if(nrow(high_level_df))
+    warning("Data at a higher level of aggregation was provided. This has been passed through to the output")
+
+  bind_rows(aggregated_df, high_level_df) %>%
+    select(iso3, area_id, area_name, survey_id, survtype, survyear, period, age_group, births, pys)
 
 }
 

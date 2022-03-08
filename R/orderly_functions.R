@@ -3,7 +3,9 @@ orderly_dev_start_oli <- function(task, ...) {
   setwd(rprojroot::find_rstudio_root_file())
   orderly_develop_start(task, ...)
   setwd(paste0("src/", task))
-  iso3 <<- unlist(...)
+
+  if (length(list(...)) && !is.null(...)) 
+    iso3 <<- unlist(...)
 }
 
 orderly_clean_all <- function() {
