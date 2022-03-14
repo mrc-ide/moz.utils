@@ -23,6 +23,6 @@ Imports:
   orderlyweb,
   sf
 Remotes:
-  mrc-ide/naomi
-  vimc/orderly
+  mrc-ide/naomi,
+  vimc/orderly,
   vimc/orderlyweb
