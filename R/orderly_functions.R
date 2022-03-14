@@ -15,3 +15,12 @@ orderly_clean_all <- function() {
   lapply(tasks, orderly::orderly_develop_clean)
 
 }
+
+orderly_pull_oli <- function(task, iso3 = NULL, recursive = FALSE, remote = "main") {
+
+	if (!is.null(iso3)) 
+    	orderly_pull_archive(task, id = paste0('latest(parameter:iso3 == "', iso3, '")'), recursive = recursive, remote = remote)
+    else
+    	orderly_pull_archive(task, recursive = recursive, remote = remote)
+
+}

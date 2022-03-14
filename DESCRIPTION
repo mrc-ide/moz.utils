@@ -1,7 +1,7 @@
 Package: moz.utils
 Type: Package
-Title: Utility functions for managing Mozambique's HIV data
-Version: 0.1.1
+Title: Utility functions
+Version: 0.1.2
 Authors@R: 
     person(given = "Oli",
            family = "Stevens",
@@ -19,6 +19,10 @@ Imports:
   ggplot2,
   magrittr,
   dplyr,
+  orderly,
+  orderlyweb,
   sf
 Remotes:
   mrc-ide/naomi
+  vimc/orderly
+  vimc/orderlyweb
