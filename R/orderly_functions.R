@@ -1,11 +1,12 @@
-orderly_dev_start_oli <- function(task, ...) {
+orderly_dev_start_oli <- function(task, iso3 = NULL) {
 
   setwd(rprojroot::find_rstudio_root_file())
-  orderly_develop_start(task, ...)
+  param <- data.frame(iso3 = iso3)
+  orderly_develop_start(task, param)
   setwd(paste0("src/", task))
 
-  if (length(list(...)) && !is.null(...)) 
-    iso3 <<- unlist(...)
+  if (!is.null(iso3)) 
+    iso3 <<- unlist(iso3)
 }
 
 orderly_clean_all <- function() {
