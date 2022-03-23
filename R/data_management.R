@@ -39,8 +39,8 @@ aggregate_to_admin <- function(df, group_vars, indicators, target_level, areas) 
   if(nrow(high_level_df))
     warning("Data at a higher level of aggregation was provided. This has been passed through to the output")
 
-  bind_rows(aggregated_df, high_level_df) %>%
-    select(iso3, area_id, area_name, survey_id, survtype, survyear, period, age_group, births, pys)
+  bind_rows(aggregated_df, high_level_df)
+    # select(iso3, area_id, area_name, survey_id, survtype, survyear, period, age_group, births, pys)
 
 }
 
