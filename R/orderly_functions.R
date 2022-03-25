@@ -24,10 +24,23 @@ orderly_clean_all <- function() {
 
 orderly_pull_oli <- function(task, iso3 = NULL, recursive = FALSE, remote = "main") {
 
+  .onLoad <- function(lib, pkg) {
+    possibly_pull <<- purrr::possibly(.f = orderly::orderly_pull_archive, otherwise = "FAIL")
+  }
 
-	if(!is.null(iso3))
-	   lapply(iso3, function(x) orderly_pull_archive(task, id = paste0('latest(parameter:iso3 == "', x, '")'), recursive = recursive, remote = remote))
-  else
-    orderly_pull_archive(task, recursive = recursive, remote = remote)
+  possibly_pull <- purrr::possibly(.f = orderly::orderly_pull_archive, otherwise = "FAIL")
+
+  if(!is.null(iso3)) {
+    res <- map(iso3, ~possibly_pull(task, id = paste0('latest(parameter:iso3 == "', .x, '")'), recursive = recursive, remote = remote))
+
+    fail_iso3 <- res %>%
+      setNames(iso3) %>%
+      keep(~!is.null(.x))
+
+    if(length(fail_iso3))
+      message(paste0(names(fail_iso3), collapse = ", "), " failed")
+  } else {
+    orderly::orderly_pull_archive(task, recursive = recursive, remote = remote)
+  }
 
 }
