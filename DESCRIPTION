@@ -1,7 +1,7 @@
 Package: moz.utils
 Type: Package
 Title: Utility functions
-Version: 0.1.3
+Version: 0.1.5
 Authors@R: 
     person(given = "Oli",
            family = "Stevens",
@@ -21,6 +21,7 @@ Imports:
   dplyr,
   orderly,
   orderlyweb,
+  purrr,
   sf
 Remotes:
   mrc-ide/naomi,

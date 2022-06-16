@@ -116,6 +116,12 @@ adjust_month <- function(calendar_month, adjustment) {
   paste0("CY", year, "M", month)
 }
 
-convert_age_groups <- function(df) {
+sex_aggregation <- function(df, indicators) {
 
+  sex_agg_df <- df %>%
+    dplyr::group_by(across(-all_of(c(indicators, "sex")))) %>%
+    dplyr::summarise(across(all_of(indicators), sum)) %>%
+    dplyr::mutate(sex = "both")
+
+  dplyr::bind_rows(df, sex_agg_df) %>% dplyr::ungroup()
 }

@@ -1,6 +1,12 @@
-orderly_dev_start_oli <- function(task, iso3 = NULL, pull_dependencies = FALSE) {
+orderly_dev_start_oli <- function(task, iso3 = NULL, version = 2021, pull_dependencies = FALSE) {
 
-  param <- data.frame(iso3 = iso3)
+  if(!is.null(iso3)) {
+    param <- data.frame(
+      iso3 = iso3,
+      version = version
+    )
+  } else
+    param <- NULL
 
   if(pull_dependencies)
     orderly_pull_dependencies(task, remote = "main", parameters = param, recursive=FALSE)
@@ -31,7 +37,7 @@ orderly_pull_oli <- function(task, iso3 = NULL, recursive = FALSE, remote = "mai
   possibly_pull <- purrr::possibly(.f = orderly::orderly_pull_archive, otherwise = "FAIL")
 
   if(!is.null(iso3)) {
-    res <- map(iso3, ~possibly_pull(task, id = paste0('latest(parameter:iso3 == "', .x, '")'), recursive = recursive, remote = remote))
+    res <- purrr::map(iso3, ~possibly_pull(task, id = paste0('latest(parameter:iso3 == "', .x, '" && parameter:version == 2021)'), recursive = recursive, remote = remote))
 
     fail_iso3 <- res %>%
       setNames(iso3) %>%
