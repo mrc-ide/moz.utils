@@ -41,7 +41,7 @@ orderly_pull_oli <- function(task, iso3 = NULL, recursive = FALSE, remote = "mai
 
     fail_iso3 <- res %>%
       setNames(iso3) %>%
-      keep(~!is.null(.x))
+      purrr::keep(~!is.null(.x))
 
     if(length(fail_iso3))
       message(paste0(names(fail_iso3), collapse = ", "), " failed")
