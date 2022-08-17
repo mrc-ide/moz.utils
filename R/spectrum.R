@@ -7,7 +7,7 @@ extract_mozambique_spectrum <- function(areas,
   dat <- dat %>%
     bind_rows() %>%
     separate(spectrum_region_name, sep = "_", into=c(NA, "area_name")) %>%
-    mutate(area_name = ifelse(area_name == "Zambezi", "Zambézia", area_name))
+    mutate(area_name = ifelse(area_name == "Zambezi", "Zamb\u00E9zia", area_name))
   
   df <- dat %>%
     left_join(data.frame(age = c(0:80), age_group_start = c(rep(seq(0, 75, 5), each = 5), 80)) %>%
