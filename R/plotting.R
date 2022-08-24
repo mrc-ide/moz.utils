@@ -1,6 +1,6 @@
 standard_theme <- function() {
 
-  theme_minimal() +
+  theme <- theme_minimal() +
     theme(legend.position = "bottom",
           strip.text = element_text(size=13),
           plot.title = element_text(size=16),
@@ -9,7 +9,44 @@ standard_theme <- function() {
           legend.text = element_text(size=12),
           strip.background = element_rect(fill=NA, colour = "white"),
           panel.background = element_rect(fill=NA, color="black"))
-    # labs(y=element_blank(), x=element_blank())
+
+}
+
+scale_percent <- function() {
+  scale_y_continuous(labels = scales::label_percent())
+}
+
+no_labels <- function() {
+  labs(x = element_blank(), y = element_blank())
+}
+
+scale_manual <- function(type = NULL, n) {
+
+  if(type == "fill") {
+    if(n==1) {
+      scale_fill_manual(values = wesanderson::wes_palette("Zissou1")[1])
+    } else if(n==2) {
+      scale_fill_manual(values = wesanderson::wes_palette("Zissou1")[c(1,4)])
+    } else if(n==3) {
+      scale_fill_manual(values = c(wesanderson::wes_palette("Darjeeling1")[c(2,4,5)]))
+    } else if(n==4) {
+      scale_fill_manual(values = c(wesanderson::wes_palette("Darjeeling2")[2], wesanderson::wes_palette("Darjeeling1")[c(2,4,5)]))
+    } else {
+      scale_fill_manual(values = wesanderson::wes_palette("Zissou1"))
+    }
+  } else {
+    if(n==1) {
+      scale_color_manual(values = wesanderson::wes_palette("Zissou1")[1])
+    } else if(n==2) {
+      scale_color_manual(values = wesanderson::wes_palette("Zissou1")[c(1,4)])
+    } else if(n==3) {
+      scale_color_manual(values = c(wesanderson::wes_palette("Darjeeling1")[c(2,4,5)]))
+    } else if(n==4) {
+      scale_color_manual(values = c(wesanderson::wes_palette("Darjeeling2")[2], wesanderson::wes_palette("Darjeeling1")[c(2,4,5)]))
+    } else {
+      scale_color_manual(values = wesanderson::wes_palette("Zissou1"))
+    }
+  }
 
 }
 
