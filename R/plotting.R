@@ -27,7 +27,7 @@ every_nth = function(axis_label, n, offset = 0) {
 province_grid <- function() {
   moz_province_grid <- data.frame(
   code = "",
-  name = c("Cabo Delgado", "Niassa", "Nampula", "Zambézia", "Tete", "Manica", "Sofala", "Inhambane", "Gaza", "Maputo"),
+  name = c("Cabo Delgado", "Niassa", "Nampula", "Zamb\u00E9zia", "Tete", "Manica", "Sofala", "Inhambane", "Gaza", "Maputo"),
   row = c(1, 1, 2, 2, 2, 3, 3, 4, 4, 5),
   col = c(4, 3, 4, 3, 1, 2, 3, 3, 2, 2),
   stringsAsFactors = FALSE
