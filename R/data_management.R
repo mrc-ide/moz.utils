@@ -5,6 +5,8 @@ aggregate_to_admin <- function(df, group_vars, indicators, target_level, areas) 
 
   areas_wide <- spread_areas(areas)
 
+  original_cols <- colnames(df)
+
   ls <- df %>%
     left_join(areas %>% select(area_id, area_level) %>% st_drop_geometry()) %>%
     group_by(area_level) %>%
@@ -39,8 +41,9 @@ aggregate_to_admin <- function(df, group_vars, indicators, target_level, areas) 
   if(nrow(high_level_df))
     warning("Data at a higher level of aggregation was provided. This has been passed through to the output")
 
-  bind_rows(aggregated_df, high_level_df)
-    # select(iso3, area_id, area_name, survey_id, survtype, survyear, period, age_group, births, pys)
+  bind_rows(aggregated_df, high_level_df) %>%
+    ungroup() %>%
+    select(any_of(original_cols))
 
 }
 
