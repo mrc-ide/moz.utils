@@ -11,7 +11,7 @@ extract_mozambique_spectrum <- function(areas,
   
   df <- dat %>%
     left_join(data.frame(age = c(0:80), age_group_start = c(rep(seq(0, 75, 5), each = 5), 80)) %>%
-                dplyr::left_join(naomi::get_age_groups() %>%
+                dplyr::left_join(naomi.utils::get_age_groups() %>%
                                    dplyr::filter(age_group_span == 5)) %>%
                 dplyr::select(age, age_group)
     )

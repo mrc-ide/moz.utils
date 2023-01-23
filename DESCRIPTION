@@ -19,7 +19,6 @@ Imports:
   ggplot2,
   gtools,
   magrittr,
-  naomi,
   orderly,
   orderlyweb,
   plyr,
@@ -27,6 +26,5 @@ Imports:
   rprojroot,
   sf
 Remotes:
-  mrc-ide/naomi,
   vimc/orderly,
   vimc/orderlyweb
