@@ -39,12 +39,12 @@ orderly_pull_oli <- function(task, iso3 = NULL, remote = "inference-web", recurs
   if(!is.null(iso3)) {
     res <- purrr::map(iso3, ~possibly_pull(task, id = paste0('latest(parameter:iso3 == "', .x, '" && parameter:version == 2022)'), recursive = recursive, remote = remote))
 
-    fail_iso3 <- res %>%
-      setNames(iso3) %>%
-      purrr::keep(~is.null(.x))
+    # fail_iso3 <- res %>%
+    #   setNames(iso3) %>%
+    #   purrr::keep(~is.null(.x))
 
-    if(length(fail_iso3))
-      message(paste0(names(fail_iso3), collapse = ", "), " failed")
+    # if(length(fail_iso3))
+    #   message(paste0(names(fail_iso3), collapse = ", "), " failed")
   } else {
     orderly::orderly_pull_archive(task, recursive = recursive, remote = remote)
   }
