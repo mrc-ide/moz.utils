@@ -5,10 +5,11 @@ standard_theme <- function() {
           strip.text = element_text(size=13),
           plot.title = element_text(size=16),
           axis.text = element_text(size = 12),
-          axis.title = element_text(size=14),
+          axis.title = element_text(size=14, face = "bold"),
           legend.text = element_text(size=12),
           strip.text = element_text(face = "bold"),
           strip.background = element_rect(fill=NA, colour = "white"),
+          plot.tag = element_text(size = 16, face = "bold"),
           panel.background = element_rect(fill=NA, color="black"))
 
 }
