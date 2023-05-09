@@ -144,3 +144,23 @@ sex_aggregation <- function(df, indicators) {
 
   dplyr::bind_rows(df, sex_agg_df) %>% dplyr::ungroup()
 }
+
+calculate_quantile <- function(x, probs = c(0.25, 0.5, 0.75), weights = NULL, wide_format = T, percentage = T) {
+  if(all.equal(probs, c(0.25, 0.5, 0.75)))
+    quant_labs <- c("lower", "median", "upper")
+  else
+    quant_labs <- probs
+
+  out <- tibble::tibble(
+    value = DescTools::Quantile(x, weights, probs, names = F, na.rm = TRUE),
+    quant = quant_labs
+  )
+
+  if(percentage)
+    out$value <- out$value * 100
+
+  if(wide_format)
+    tidyr::pivot_wider(out, names_from = quant, values_from = value)
+  else
+    out
+}

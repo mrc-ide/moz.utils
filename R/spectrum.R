@@ -11,29 +11,42 @@ extract_mozambique_spectrum <- function(areas,
   
   df <- dat %>%
     left_join(data.frame(age = c(0:80), age_group_start = c(rep(seq(0, 75, 5), each = 5), 80)) %>%
-                dplyr::left_join(naomi.utils::get_age_groups() %>%
+                dplyr::left_join(naomi::get_age_groups() %>%
                                    dplyr::filter(age_group_span == 5)) %>%
                 dplyr::select(age, age_group)
-    )
+    ) %>%
+    left_join(areas %>% select(area_id, area_name) %>% st_drop_geometry()) %>%
+    filter(str_detect(area_id, "_1_"))
+  
+  preg_prev <- df %>%
+    filter(!is.na(pregprev)) %>%
+    mutate(preg = totpop * asfr,
+           preglhiv = preg * pregprev
+           ) %>%
+    group_by(area_id, area_name, year, sex) %>%
+    summarise(
+              pregprev = sum(preglhiv)/sum(preg)
+              ) %>%
+    mutate(age_group = "Y015_049")
   
   hiv_indicators <- df %>%
-    dplyr::group_by(area_name, year, sex, age_group) %>%
+    dplyr::group_by(area_id, area_name, year, sex, age_group) %>%
     dplyr::summarise(totpop = sum(totpop),
                      hivpop = sum(hivpop),
                      artpop_dec31 = sum(artpop_dec31),
                      infections = sum(infections)) %>%
     dplyr::ungroup() %>%
-    mutate(source = "Spectrum 2021") %>%
-    left_join(areas %>% select(area_id, area_name) %>% st_drop_geometry())
+    bind_rows(preg_prev) %>%
+    mutate(source = "Spectrum 2022")
+    
   
   fertility_indicators <- df %>%
     dplyr::filter(sex == "female", age %in% 15:49) %>%
-    group_by(area_name, year, age_group, asfr) %>%
+    group_by(area_id, area_name, year, age_group, asfr) %>%
     summarise(population = sum(totpop)) %>%
     mutate(births = population * asfr,
-           source = "Spectrum 2021") %>%
-    ungroup()  %>%
-    left_join(areas %>% select(area_id, area_name) %>% st_drop_geometry())
+           source = "Spectrum 2022") %>%
+    ungroup()
   
   if(nrow(filter(hiv_indicators, is.na(area_id))))
     stop("HIV indicators has areas with no area IDs")
@@ -49,6 +62,7 @@ extract_mozambique_spectrum <- function(areas,
   
   
 }
+
 
 
 

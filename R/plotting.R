@@ -7,6 +7,7 @@ standard_theme <- function() {
           axis.text = element_text(size = 12),
           axis.title = element_text(size=14),
           legend.text = element_text(size=12),
+          strip.text = element_text(face = "bold"),
           strip.background = element_rect(fill=NA, colour = "white"),
           panel.background = element_rect(fill=NA, color="black"))
 
