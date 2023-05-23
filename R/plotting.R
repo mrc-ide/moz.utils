@@ -75,3 +75,54 @@ province_grid <- function() {
   facet_geo(~area_name, grid = moz_province_grid)
 
 }
+
+name_kp <- function(df, linebreak = T) {
+
+  if(linebreak) {
+    df %>% 
+      mutate(kp = recode(kp, 
+        "FSW" = "Female sex\nworkers",
+        "MSM" = "Men who have\nsex with men", 
+        "PWID" = "People who\ninject drugs", 
+        "TG" = "Transgender\npeople", 
+        "TGW" = "Transwomen", 
+        "TGM" = "Transmen", 
+        "CFSW" = "Clients of female\nsex workers")
+      )
+  } else {
+    df %>% 
+      mutate(kp = recode(kp, 
+        "FSW" = "Female sex workers",
+        "MSM" = "Men who have sex with men", 
+        "PWID" = "People who inject drugs", 
+        "TG" = "Transgender people", 
+        "TGW" = "Transwomen", 
+        "TGM" = "Transmen", 
+        "CFSW" = "Clients of female sex workers")
+      )
+  }
+
+  
+}
+
+name_region <- function(df, linebreak = T) {
+
+  if(linebreak) {
+    df %>%
+      left_join(data.frame(
+        region = c("SSA", "ESA", "WCA"),
+        region_name = c("Sub-Saharan\nAfrica", "Eastern and\nSouthern Africa", "Western and\nCentral Africa")
+        )
+      ) %>%
+      select(-region, region = region_name)
+  } else {
+    df %>%
+      left_join(data.frame(
+        region = c("SSA", "ESA", "WCA"),
+        region_name = c("Sub-Saharan Africa", "Eastern and Southern Africa", "Western and Central Africa")
+        )
+      ) %>%
+      select(-region, region = region_name)
+  }
+  
+}
