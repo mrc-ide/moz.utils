@@ -50,7 +50,7 @@ aggregate_to_admin <- function(df, group_vars, indicators, target_level, areas) 
 
 five_year_to_15to49 <- function(df, indicators) {
 
-  age_span <- naomi.utils::get_age_groups() %>%
+  age_span <- naomi::get_age_groups() %>%
     dplyr::filter(age_group_span == 5,
            age_group_start %in% 15:45)
 
@@ -146,7 +146,7 @@ sex_aggregation <- function(df, indicators) {
 }
 
 calculate_quantile <- function(x, probs = c(0.25, 0.5, 0.75), weights = NULL, wide_format = T, percentage = T) {
-  if(all.equal(probs, c(0.25, 0.5, 0.75)))
+  if(all.equal(sort(probs), c(0.25, 0.5, 0.75)) != TRUE)
     quant_labs <- c("lower", "median", "upper")
   else
     quant_labs <- probs
