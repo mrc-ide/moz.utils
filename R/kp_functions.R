@@ -6,14 +6,27 @@ kp_to_sex <- function() {
 }
 
 kp_to_eng <- function(df) {
-  
+
     df %>%
-      left_join(
+      dplyr::left_join(
         data.frame(
            kp = c("PS", "HSH", "CDI", "TG"),
            new_kp = c("FSW", "MSM", "PWID", "TG")
           )
       ) %>%
-      select(-kp, kp = new_kp)
-  
+      dplyr::select(-kp, kp = new_kp)
+
+}
+
+separate_survey_id <- function(df, kp = T) {
+
+  if(kp) {
+    df %>%
+      dplyr::separate(survey_id, into = c("iso3", "year", NA), sep = c(3, 7), remove = F, convert = T) %>%
+      dplyr::separate(survey_id, into = c(NA, "kp"), sep = "_", remove = F)
+  } else {
+    df %>%
+      dplyr::separate(survey_id, into = c("iso3", "year", NA), sep = c(3, 7), remove = F, convert = T)
+  }
+
 }
