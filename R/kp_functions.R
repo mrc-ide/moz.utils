@@ -22,11 +22,11 @@ separate_survey_id <- function(df, kp = T) {
 
   if(kp) {
     df %>%
-      dplyr::separate(survey_id, into = c("iso3", "year", NA), sep = c(3, 7), remove = F, convert = T) %>%
-      dplyr::separate(survey_id, into = c(NA, "kp"), sep = "_", remove = F)
+      tidyr::separate(survey_id, into = c("iso3", "year", NA), sep = c(3, 7), remove = F, convert = T) %>%
+      tidyr::separate(survey_id, into = c(NA, "kp"), sep = "_", remove = F)
   } else {
     df %>%
-      dplyr::separate(survey_id, into = c("iso3", "year", NA), sep = c(3, 7), remove = F, convert = T)
+      tidyr::separate(survey_id, into = c("iso3", "year", NA), sep = c(3, 7), remove = F, convert = T)
   }
 
 }

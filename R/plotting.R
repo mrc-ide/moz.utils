@@ -125,3 +125,14 @@ name_region <- function(df, linebreak = T) {
   }
   
 }
+
+cc_plot <- function() {
+  c(
+  "ZAF" = "S. Africa",
+  "SSD" = "S. Sudan",
+  "SLE" = "S. Leone",
+  "COD" = "Dem. Rep. Congo",
+  "COG" = "Congo",
+  "CAF" = "Cent. Afr. Rep."
+  )
+}

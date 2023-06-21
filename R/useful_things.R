@@ -24,10 +24,10 @@ admin1_adj <- function() {
   fs::path_package("extdata", "admin1.adj", package = "moz.utils")
 }
 
-national_areas <- function() {
-  fs::path_package("extdata", "national_areas.geojson", package = "moz.utils")
-}
-
 grey_areas <- function() {
   fs::path_package("extdata", "grey.geojson", package = "moz.utils")
+}
+
+national_areas <- function() {
+  fs::path_package("extdata", "national_areas.geojson", package = "moz.utils")
 }
