@@ -133,6 +133,8 @@ cc_plot <- function() {
   "SLE" = "S. Leone",
   "COD" = "Dem. Rep. Congo",
   "COG" = "Congo",
-  "CAF" = "Cent. Afr. Rep."
+  "CAF" = "Cent. Afr. Rep.",
+  "GNB" = "G. Bissau",
+  "GNQ" = "Eq. Guinea"
   )
 }

@@ -16,6 +16,21 @@ region <- function() {
 
 }
 
+factor_region <- function(df) {
+  
+  if("ESA" %in% unique(df$region)) {
+    df %>%
+      mutate(region = factor(region, levels = c("ESA", "WCA", "SSA")))
+  } else if("Eastern and Southern Africa" %in% unique(df$region)) {
+    df %>%
+      mutate(region = factor(region, levels = c("Eastern and Southern Africa", "Western and Central Africa", "Sub-Saharan Africa")))
+  } else {
+    df %>%
+      mutate(region = factor(region, levels = c("Eastern and\nSouthern Africa", "Western and\nCentral Africa", "Sub-Saharan\nAfrica")))
+  }
+
+}
+
 national_adj <- function() {
   fs::path_package("extdata", "national_level_adj.adj", package = "moz.utils")
 }

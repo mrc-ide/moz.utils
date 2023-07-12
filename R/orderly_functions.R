@@ -1,4 +1,4 @@
-orderly_dev_start_oli <- function(task, iso3 = NULL, version = 2022, pull_dependencies = FALSE, remote = "inference-web") {
+orderly_dev_start_oli <- function(task, iso3 = NULL, version = 2022, pull_dependencies = FALSE, remote = "inference-web", envir = parent.frame()) {
 
   if(!is.null(iso3)) {
     param <- data.frame(
@@ -12,11 +12,8 @@ orderly_dev_start_oli <- function(task, iso3 = NULL, version = 2022, pull_depend
     orderly_pull_dependencies(task, remote = remote, parameters = param, recursive=TRUE)
 
   setwd(rprojroot::find_rstudio_root_file())
-  orderly_develop_start(task, param)
+  orderly_develop_start(task, param, envir = envir)
   setwd(paste0("src/", task))
-
-  if(!is.null(iso3))
-    iso3 <<- unlist(iso3)
 }
 
 orderly_clean_all <- function() {
