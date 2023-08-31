@@ -84,8 +84,8 @@ name_kp <- function(df, linebreak = T) {
         "MSM" = "Men who have\nsex with men", 
         "PWID" = "People who\ninject drugs", 
         "TG" = "Transgender\npeople", 
-        "TGW" = "Transwomen", 
-        "TGM" = "Transmen", 
+        "TGW" = "Transgender\nwomen", 
+        "TGM" = "Transgender\nmen", 
         "CFSW" = "Clients of female\nsex workers")
       )
   } else {
@@ -95,8 +95,8 @@ name_kp <- function(df, linebreak = T) {
         "MSM" = "Men who have sex with men", 
         "PWID" = "People who inject drugs", 
         "TG" = "Transgender people", 
-        "TGW" = "Transwomen", 
-        "TGM" = "Transmen", 
+        "TGW" = "Transgender women", 
+        "TGM" = "Transgender men", 
         "CFSW" = "Clients of female sex workers")
       )
   }

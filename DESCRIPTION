@@ -1,7 +1,7 @@
 Package: moz.utils
 Type: Package
 Title: Utility functions
-Version: 0.1.85
+Version: 0.1.86
 Authors@R: 
     person(given = "Oli",
            family = "Stevens",
