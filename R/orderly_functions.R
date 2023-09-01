@@ -14,7 +14,7 @@ orderly_dev_start_oli <- function(task, iso3 = NULL, version = 2022, pull_depend
     orderly::orderly_pull_dependencies(task, remote = remote, parameters = param, recursive=TRUE)
 
   setwd(rprojroot::find_rstudio_root_file())
-  ortderly::orderly_develop_start(task, param, envir = envir)
+  orderly::orderly_develop_start(task, param, envir = envir)
   setwd(paste0("src/", task))
 }
 
