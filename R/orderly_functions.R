@@ -6,7 +6,9 @@ orderly_dev_start_oli <- function(task, iso3 = NULL, version = 2022, pull_depend
     param <- data.frame(
       iso3 = iso3,
       version = version
-    ) %>% bind_cols(data.frame(varnames))
+    )
+    if(length(varnames))
+      param <- bind_cols(param, data.frame(varnames))
   } else
     param <- NULL
 
