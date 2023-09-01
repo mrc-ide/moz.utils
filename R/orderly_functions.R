@@ -1,18 +1,20 @@
-orderly_dev_start_oli <- function(task, iso3 = NULL, version = 2022, pull_dependencies = FALSE, remote = "inference-web", envir = parent.frame()) {
+orderly_dev_start_oli <- function(task, iso3 = NULL, version = 2022, pull_dependencies = FALSE, remote = "inference-web", envir = parent.frame(), ...) {
+
+  varnames <- lapply(substitute(list(...))[-1], deparse)
 
   if(!is.null(iso3)) {
     param <- data.frame(
       iso3 = iso3,
       version = version
-    )
+    ) %>% bind_cols(data.frame(varnames))
   } else
     param <- NULL
 
   if(pull_dependencies)
-    orderly_pull_dependencies(task, remote = remote, parameters = param, recursive=TRUE)
+    orderly::orderly_pull_dependencies(task, remote = remote, parameters = param, recursive=TRUE)
 
   setwd(rprojroot::find_rstudio_root_file())
-  orderly_develop_start(task, param, envir = envir)
+  ortderly::orderly_develop_start(task, param, envir = envir)
   setwd(paste0("src/", task))
 }
 
