@@ -13,8 +13,8 @@ standard_theme <- function() {
 
 }
 
-scale_percent <- function() {
-  scale_y_continuous(labels = scales::label_percent())
+scale_percent <- function(...) {
+  scale_y_continuous(labels = scales::label_percent(), expand = expansion(mult = c(0, 0)), ...)
 }
 
 no_labels <- function() {
