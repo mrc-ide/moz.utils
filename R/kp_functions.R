@@ -1,7 +1,7 @@
 kp_to_sex <- function() {
     data.frame(
       kp = c("FSW", "MSM", "PWID", "TGW", "CFSW"),
-      sex = c("female", "male", "both", "female", "male")
+      sex = c("female", "male", "male", "female", "male")
     )
 }
 
