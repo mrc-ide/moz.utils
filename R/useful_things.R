@@ -16,8 +16,16 @@ region <- function() {
 
 }
 
+logit <- function(x) {
+  qlogis(x)
+}
+
+invlogit <- function(x) {
+  plogis(x)
+}
+
 factor_region <- function(df) {
-  
+
   if("ESA" %in% unique(df$region)) {
     df %>%
       mutate(region = factor(region, levels = c("ESA", "WCA", "SSA")))
