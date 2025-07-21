@@ -1,7 +1,7 @@
 Package: moz.utils
 Type: Package
 Title: Utility functions
-Version: 0.1.89
+Version: 0.1.90
 Authors@R: 
     person(given = "Oli",
            family = "Stevens",
@@ -19,12 +19,12 @@ Imports:
   ggplot2,
   gtools,
   magrittr,
-  orderly,
+  orderly1,
   orderlyweb,
   plyr,
   purrr,
   rprojroot,
   sf
 Remotes:
-  vimc/orderly,
+  vimc/orderly1,
   vimc/orderlyweb

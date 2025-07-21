@@ -13,10 +13,10 @@ orderly_dev_start_oli <- function(task, iso3 = NULL, version = 2022, pull_depend
     param <- NULL
 
   if(pull_dependencies)
-    orderly::orderly_pull_dependencies(task, remote = remote, parameters = param, recursive=TRUE)
+    orderly1::orderly_pull_dependencies(task, remote = remote, parameters = param, recursive=TRUE)
 
   setwd(rprojroot::find_rstudio_root_file())
-  orderly::orderly_develop_start(task, param, envir = envir)
+  orderly1::orderly_develop_start(task, param, envir = envir)
   setwd(paste0("src/", task))
 }
 
@@ -24,7 +24,7 @@ orderly_clean_all <- function() {
 
   setwd(rprojroot::find_rstudio_root_file())
   tasks <- grep("README", list.files("src"),  invert = TRUE, value = TRUE)
-  lapply(tasks, orderly::orderly_develop_clean)
+  lapply(tasks, orderly1::orderly_develop_clean)
   orderly_cleanup()
 
 }
@@ -32,10 +32,10 @@ orderly_clean_all <- function() {
 orderly_pull_oli <- function(task, iso3 = NULL, remote = "inference-web", recursive = TRUE) {
 
   # .onLoad <- function(lib, pkg) {
-  #   possibly_pull <<- purrr::possibly(.f = orderly::orderly_pull_archive, quiet = FALSE)
+  #   possibly_pull <<- purrr::possibly(.f = orderly1::orderly_pull_archive, quiet = FALSE)
   # }
 
-  possibly_pull <- purrr::possibly(.f = orderly::orderly_pull_archive, otherwise = NULL, quiet = FALSE)
+  possibly_pull <- purrr::possibly(.f = orderly1::orderly_pull_archive, otherwise = NULL, quiet = FALSE)
 
   if(!is.null(iso3)) {
     res <- purrr::map(iso3, ~possibly_pull(task, id = paste0('latest(parameter:iso3 == "', .x, '" && parameter:version == 2022)'), recursive = recursive, remote = remote))
@@ -47,7 +47,7 @@ orderly_pull_oli <- function(task, iso3 = NULL, remote = "inference-web", recurs
     # if(length(fail_iso3))
     #   message(paste0(names(fail_iso3), collapse = ", "), " failed")
   } else {
-    orderly::orderly_pull_archive(task, recursive = recursive, remote = remote)
+    orderly1::orderly_pull_archive(task, recursive = recursive, remote = remote)
   }
 
 }
